@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Slideshow Gallery</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #92aac2ce;
+            color: #2e3192;
+        }
+
+        .navbar-brand {
+            /* font-style: Bold; */
+            font-weight: bold;
+        }
+
+
+        /* Sticky Navbar */
+        .navbar {
+            background: #2e3192;
+            overflow: hidden;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .content {
+            margin-top: 80px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .img-content {
+            /* margin-top: 80px; */
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .gallery-container {
+            width: 30%;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .gallery-container img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar a {
+                padding: 8px;
+                font-size: 16px;
+            }
+
+            .gallery-container {
+                width: 90%;
+            }
+        }
+
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="{% url 'index' %}"><b>Manisha</b></a>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{%url 'about'%}">About</a>
+        <a href="{%url  'contact'  %}">Contact</a>
+        <!-- <a href="#sports">Sports</a>
+        <a href="#nss">NSS</a>
+        <a href="#certificates">Certificates</a> -->
+    </nav>
+
+    <div id="home" class="content">
+        <h2>Welcome to the Gallery</h2>
+        <!-- <p>Explore different sections including sports, NSS, and certificates.</p> -->
+    </div>
+
+    <div class="img-content">
+        <div class="gallery-container" id="sports-gallery"></div>
+        <div class="gallery-container" id="nss-gallery"></div>
+        <div class="gallery-container" id="certificates-gallery"></div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Manisha. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const galleries = {
+            sports: ["s111.jpg", "s11.jpg", "s1.jpg", "s3.jpg", "s4.jpg", "s5.jpg", "s13.jpg", "s12.jpg", "polo.jpg"],
+            nss: ["nss.jpg", "n1.jpg", "n2.jpg", "n3.jpg", "n5.jpg", "n111.jpg", "n6.JPG" ,"9218.jpg"],
+            certificates: ["c1.jpg", "c2.jpg", "c3.jpg", "c5.jpg", "c4.jpg", "c6.jpg" ,"sports6.jpg", "c11.jpg","123.jpg","medal.jpg", ]
+        };
+
+        function createGallery(category) {
+            let container = document.getElementById(category + "-gallery");
+            container.innerHTML = `<h3>${category.toUpperCase()} Gallery</h3>` +
+                galleries[category].map(img => `
+                    <img src="{% static 'images/' %}${img}">
+                `).join('');
+        }
+
+        Object.keys(galleries).forEach(category => {
+            createGallery(category);
+        });
+    </script>
+</body>
+
+</html>
